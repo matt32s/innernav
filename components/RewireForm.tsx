@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Datalink from "@/components/motion/Datalink";
 
 /**
  * Static-first email capture. No backend by design.
@@ -20,7 +21,7 @@ export default function RewireForm() {
   if (sent) {
     return (
       <p className="in-label text-frequency" role="status">
-        SIGNAL RECEIVED. YOU ARE ON THE LIST.
+        <Datalink text="SIGNAL RECEIVED. YOU ARE ON THE LIST." />
       </p>
     );
   }

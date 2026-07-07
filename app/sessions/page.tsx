@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Eyebrow, Divider } from "@/components/Footer";
+import SignalScan from "@/components/motion/SignalScan";
+import TuneIn from "@/components/motion/TuneIn";
 
 export const metadata: Metadata = {
   title: "Sessions",
@@ -11,14 +13,14 @@ export const metadata: Metadata = {
 export default function Sessions() {
   return (
     <section className="mx-auto max-w-3xl px-5 py-24">
-      <div className="text-center">
+      <SignalScan className="text-center">
         <Eyebrow>1:1</Eyebrow>
-        <h1 className="in-display text-3xl text-cloud md:text-4xl">
+        <TuneIn as="h1" className="in-display text-3xl text-cloud md:text-4xl">
           SESSIONS
-        </h1>
-      </div>
+        </TuneIn>
+      </SignalScan>
 
-      <div className="mt-16 space-y-14">
+      <SignalScan className="mt-16 space-y-14">
         <div>
           <h2 className="in-label text-lift">WHAT THIS IS</h2>
           <p className="mt-4 text-sm leading-relaxed text-haze">
@@ -71,7 +73,7 @@ export default function Sessions() {
             REQUEST A SESSION
           </Link>
         </div>
-      </div>
+      </SignalScan>
 
       <Divider />
 

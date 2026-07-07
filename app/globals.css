@@ -134,6 +134,101 @@ body {
   outline-offset: 2px;
 }
 
+/* ---------- motion: transmission card lift (pure CSS, transform/opacity only) ---------- */
+.in-episode-card {
+  position: relative;
+  transition:
+    transform 300ms ease,
+    border-color 300ms ease;
+}
+.in-episode-card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 45%;
+  background: linear-gradient(
+    to top,
+    rgba(45, 156, 140, 1),
+    rgba(45, 156, 140, 0)
+  );
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: none;
+}
+.in-episode-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(45, 156, 140, 0.8);
+}
+.in-episode-card:hover::after {
+  opacity: 0.25;
+}
+.in-episode-numeral {
+  transition: color 300ms ease;
+}
+.in-episode-card:hover .in-episode-numeral {
+  color: rgba(45, 156, 140, 0.6);
+}
+
+/* ---------- motion: amber pulse (the one living element per page) ---------- */
+@keyframes in-amber-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.25);
+    opacity: 1;
+  }
+}
+.in-amber-pulse {
+  animation: in-amber-pulse 4s ease-in-out infinite;
+}
+
+/* ---------- motion: dead-signal flicker (incoming transmissions only) ---------- */
+@keyframes in-static-flicker {
+  0%,
+  100% {
+    opacity: 0.04;
+  }
+  18% {
+    opacity: 0.06;
+  }
+  33% {
+    opacity: 0.03;
+  }
+  52% {
+    opacity: 0.07;
+  }
+  71% {
+    opacity: 0.035;
+  }
+  86% {
+    opacity: 0.055;
+  }
+}
+.in-static-shimmer {
+  animation: in-static-flicker 2s linear infinite;
+}
+
+/* ---------- motion: datalink cursor, blinks twice then vanishes (JS hides on animationend) ---------- */
+@keyframes in-cursor-blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.in-cursor-blink {
+  animation: in-cursor-blink 0.4s step-end 2;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -141,5 +236,11 @@ body {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  /* infinite CSS loops fully off, not just shortened */
+  .in-amber-pulse,
+  .in-static-shimmer,
+  .in-cursor-blink {
+    animation: none !important;
   }
 }

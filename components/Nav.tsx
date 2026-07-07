@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { NAV_LINKS } from "@/lib/content/site";
+import AmberPulse from "@/components/motion/AmberPulse";
 
 function isActive(pathname: string, href: string) {
   if (href === "/") return pathname === "/";
@@ -43,11 +44,8 @@ export default function Nav() {
               </Link>
             );
           })}
-          {/* amber indicator dot */}
-          <span
-            aria-hidden="true"
-            className="h-1.5 w-1.5 rounded-full bg-signal"
-          />
+          {/* amber indicator dot, breathing */}
+          <AmberPulse />
         </nav>
 
         {/* mobile trigger */}
@@ -81,12 +79,7 @@ export default function Nav() {
                       active ? "text-cloud" : "text-haze"
                     }`}
                   >
-                    {active && (
-                      <span
-                        aria-hidden="true"
-                        className="mr-3 inline-block h-1.5 w-1.5 rounded-full bg-signal align-middle"
-                      />
-                    )}
+                    {active && <AmberPulse className="mr-3 align-middle" />}
                     {l.label}
                   </Link>
                 </li>

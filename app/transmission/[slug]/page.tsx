@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Eyebrow } from "@/components/Footer";
 import { EpisodeBanner } from "@/components/EpisodeCard";
+import Datalink from "@/components/motion/Datalink";
+import SignalScan from "@/components/motion/SignalScan";
+import TuneIn from "@/components/motion/TuneIn";
 import { bySlug, episodes, CHANNEL_URL } from "@/lib/content/episodes";
 import { SOCIALS } from "@/lib/content/site";
 
@@ -35,13 +37,18 @@ export default async function EpisodePage({
 
   return (
     <article className="mx-auto max-w-4xl px-5 py-24">
-      <Eyebrow>
-        TRANSMISSION · FL370 · EP.{String(ep.number).padStart(2, "0")}
-      </Eyebrow>
-      <h1 className="in-display text-3xl text-cloud md:text-4xl">
-        {ep.title.toUpperCase()}
-      </h1>
-      <p className="mt-4 text-sm text-haze">{ep.hook}</p>
+      <SignalScan>
+        {/* datalink type-in: one of exactly two surfaces */}
+        <p className="in-label mb-4 text-lift">
+          <Datalink
+            text={`TRANSMISSION · FL370 · EP.${String(ep.number).padStart(2, "0")}`}
+          />
+        </p>
+        <TuneIn as="h1" className="in-display text-3xl text-cloud md:text-4xl">
+          {ep.title.toUpperCase()}
+        </TuneIn>
+        <p className="mt-4 text-sm text-haze">{ep.hook}</p>
+      </SignalScan>
 
       {/* Player: plays in place, never ejects */}
       <div className="mt-12">
@@ -86,12 +93,14 @@ export default async function EpisodePage({
         )}
       </div>
 
-      <div className="mt-10">
-        <h2 className="in-label text-lift">ABOUT THIS TRANSMISSION</h2>
-        <p className="mt-4 max-w-2xl text-sm leading-relaxed text-haze">
-          {ep.description}
-        </p>
-      </div>
+      <SignalScan className="mt-10">
+        <div>
+          <h2 className="in-label text-lift">ABOUT THIS TRANSMISSION</h2>
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-haze">
+            {ep.description}
+          </p>
+        </div>
+      </SignalScan>
 
       {/* Other surfaces */}
       <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3">

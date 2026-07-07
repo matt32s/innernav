@@ -4,6 +4,8 @@ import "./globals.css";
 import FilmGrain from "@/components/FilmGrain";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import BootSequence from "@/components/motion/BootSequence";
+import Altimeter from "@/components/motion/Altimeter";
 import { SITE } from "@/lib/content/site";
 
 export const metadata: Metadata = {
@@ -28,7 +30,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={GeistSans.variable}>
       <body className="min-h-screen font-sans">
+        <BootSequence />
         <FilmGrain />
+        <Altimeter />
         <Nav />
         <main>{children}</main>
         <Footer />

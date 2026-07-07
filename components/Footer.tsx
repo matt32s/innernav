@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { DISCLAIMER, NAV_LINKS, SOCIALS } from "@/lib/content/site";
+import AmberPulse from "@/components/motion/AmberPulse";
+import TuneIn from "@/components/motion/TuneIn";
 
 /* Small inline icons. Amber at rest per the Amber Rule (small scale only). */
 export function SocialIcons({ size = 16 }: { size?: number }) {
@@ -61,7 +63,11 @@ export function SocialIcons({ size = 16 }: { size?: number }) {
 }
 
 export function Eyebrow({ children }: { children: React.ReactNode }) {
-  return <p className="in-label mb-4 text-lift">{children}</p>;
+  return (
+    <TuneIn as="p" className="in-label mb-4 text-lift">
+      {children}
+    </TuneIn>
+  );
 }
 
 /* Section divider: thin frequency line, amber centerpoint. */
@@ -69,7 +75,10 @@ export function Divider() {
   return (
     <div className="relative mx-auto my-24 max-w-4xl px-5" aria-hidden="true">
       <div className="h-px w-full bg-frequency/30" />
-      <span className="absolute left-1/2 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-signal" />
+      {/* outer span keeps the translate; AmberPulse animates scale inside it */}
+      <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+        <AmberPulse className="block" />
+      </span>
     </div>
   );
 }

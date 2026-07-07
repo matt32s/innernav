@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Eyebrow } from "@/components/Footer";
+import SignalScan from "@/components/motion/SignalScan";
+import TuneIn from "@/components/motion/TuneIn";
 
 export const metadata: Metadata = {
   title: "About",
@@ -11,12 +13,14 @@ export const metadata: Metadata = {
 export default function About() {
   return (
     <section className="mx-auto max-w-3xl px-5 py-24">
-      <div className="text-center">
+      <SignalScan className="text-center">
         <Eyebrow>THE OBSERVER</Eyebrow>
-        <h1 className="in-display text-3xl text-cloud md:text-4xl">ABOUT</h1>
-      </div>
+        <TuneIn as="h1" className="in-display text-3xl text-cloud md:text-4xl">
+          ABOUT
+        </TuneIn>
+      </SignalScan>
 
-      <div className="mt-16 space-y-8 text-sm leading-relaxed text-haze">
+      <SignalScan className="mt-16 space-y-8 text-sm leading-relaxed text-haze">
         <p>
           I am Mateo. I fly the Airbus A320 for a living. I document my own
           transformation for a reason.
@@ -43,7 +47,7 @@ export default function About() {
           If the work speaks to you, start with the series. It is the center
           of everything.
         </p>
-      </div>
+      </SignalScan>
 
       <div className="mt-14 text-center">
         <Link href="/transmission" className="in-btn">

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Episode } from "@/lib/content/episodes";
+import StaticShimmer from "@/components/motion/StaticShimmer";
 
 /* Banner thumbnail: pure design-system atmosphere until real stills are added.
    Callsign strip bottom-left per editorial rule. */
@@ -19,7 +20,7 @@ export function EpisodeBanner({
       }}
       aria-hidden="true"
     >
-      <span className="absolute right-4 top-4 text-5xl font-extralight text-frequency/25">
+      <span className="in-episode-numeral absolute right-4 top-4 text-5xl font-extralight text-frequency/25">
         {episode.numeral}
       </span>
       <span
@@ -33,6 +34,8 @@ export function EpisodeBanner({
           INCOMING
         </span>
       )}
+      {/* dead signal: incoming transmissions have no signal yet */}
+      {episode.status === "incoming" && <StaticShimmer />}
     </div>
   );
 }
@@ -41,7 +44,7 @@ export default function EpisodeCard({ episode }: { episode: Episode }) {
   return (
     <Link
       href={`/transmission/${episode.slug}`}
-      className="in-card block overflow-hidden"
+      className="in-card in-episode-card block h-full overflow-hidden"
     >
       <EpisodeBanner episode={episode} />
       <div className="p-6">

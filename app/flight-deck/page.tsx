@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Eyebrow } from "@/components/Footer";
+import SignalScan from "@/components/motion/SignalScan";
+import TuneIn from "@/components/motion/TuneIn";
 import { SOCIALS } from "@/lib/content/site";
 
 export const metadata: Metadata = {
@@ -42,24 +44,27 @@ const CARDS = [
 export default function FlightDeck() {
   return (
     <section className="mx-auto max-w-6xl px-5 py-24">
-      <div className="text-center">
+      <SignalScan className="text-center">
         <Eyebrow>AVIATION · LIFESTYLE</Eyebrow>
-        <h1 className="in-display text-3xl text-cloud md:text-4xl">
+        <TuneIn as="h1" className="in-display text-3xl text-cloud md:text-4xl">
           FLIGHT DECK
-        </h1>
+        </TuneIn>
         <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-haze">
           The visible life around the inner work. A pilot&apos;s world, kept
           honest. Short form lives on the surfaces below.
         </p>
-      </div>
-      <div className="mt-16 grid gap-6 sm:grid-cols-2">
+      </SignalScan>
+      <SignalScan
+        className="mt-16 grid gap-6 sm:grid-cols-2"
+        itemClassName="h-full"
+      >
         {CARDS.map((c) => (
           <a
             key={c.title}
             href={c.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="in-card block p-8"
+            className="in-card block h-full p-8"
           >
             <p className="in-label text-lift">{c.label}</p>
             <h2 className="mt-4 text-xl font-extralight tracking-wide text-cloud">
@@ -71,7 +76,7 @@ export default function FlightDeck() {
             </p>
           </a>
         ))}
-      </div>
+      </SignalScan>
     </section>
   );
 }

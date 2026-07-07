@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Eyebrow } from "@/components/Footer";
+import SignalScan from "@/components/motion/SignalScan";
+import TuneIn from "@/components/motion/TuneIn";
 import { SOCIALS } from "@/lib/content/site";
 
 export const metadata: Metadata = {
@@ -12,16 +14,21 @@ const CONTACT_EMAIL = "contact@inner-nav.com";
 export default function Contact() {
   return (
     <section className="mx-auto max-w-3xl px-5 py-24">
-      <div className="text-center">
+      <SignalScan className="text-center">
         <Eyebrow>SIGNAL IN</Eyebrow>
-        <h1 className="in-display text-3xl text-cloud md:text-4xl">CONTACT</h1>
+        <TuneIn as="h1" className="in-display text-3xl text-cloud md:text-4xl">
+          CONTACT
+        </TuneIn>
         <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-haze">
           One inbox. Read personally, answered between flights.
         </p>
-      </div>
+      </SignalScan>
 
-      <div className="mt-16 grid gap-6 sm:grid-cols-2">
-        <div className="in-card p-8">
+      <SignalScan
+        className="mt-16 grid gap-6 sm:grid-cols-2"
+        itemClassName="h-full"
+      >
+        <div className="in-card h-full p-8">
           <p className="in-label text-lift">EMAIL</p>
           <a
             href={`mailto:${CONTACT_EMAIL}`}
@@ -34,7 +41,7 @@ export default function Contact() {
             examine.
           </p>
         </div>
-        <div className="in-card p-8">
+        <div className="in-card h-full p-8">
           <p className="in-label text-lift">SURFACES</p>
           <div className="mt-4 space-y-3">
             <a
@@ -55,7 +62,7 @@ export default function Contact() {
             </a>
           </div>
         </div>
-      </div>
+      </SignalScan>
     </section>
   );
 }
