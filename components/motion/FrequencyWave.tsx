@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 /* horizon -> frequency -> lift, fading out at both ends so the tile loops clean */
@@ -10,10 +11,19 @@ const WAVE =
  * Slow vertical gradient wave behind the home hero text only.
  * Oversized layer (200% tall, tile = 50%) drifts upward via translateY,
  * so -50% is exactly one period and the 12s loop is seamless.
+ * Static gradient is the SSR/base state; the drift starts post-mount and
+ * only when motion is allowed, so server and client markup always match.
  * Decorative: pointer-events-none, opacity 0.15, transform-only.
  */
 export default function FrequencyWave() {
   const reduced = useReducedMotion();
+  const [drift, setDrift] = useState(false);
+
+  useEffect(() => {
+    if (reduced) return;
+    const raf = requestAnimationFrame(() => setDrift(true));
+    return () => cancelAnimationFrame(raf);
+  }, [reduced]);
 
   return (
     <div
@@ -29,7 +39,7 @@ export default function FrequencyWave() {
           backgroundSize: "100% 50%",
           backgroundRepeat: "repeat-y",
         }}
-        animate={reduced ? undefined : { y: ["0%", "-50%"] }}
+        animate={drift && !reduced ? { y: ["0%", "-50%"] } : undefined}
         transition={{ duration: 12, ease: "linear", repeat: Infinity }}
       />
     </div>

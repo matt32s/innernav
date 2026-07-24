@@ -9,7 +9,12 @@ export const metadata: Metadata = {
   description: "Reach Inner Navigation. Session inquiries and collaboration.",
 };
 
-const CONTACT_EMAIL = "contact@inner-nav.com";
+/* ============================================================
+   TODO [SET REAL EMAIL before deploy]
+   This is a placeholder. It renders on the live contact page.
+   Replace with the real inbox before the site goes public.
+   ============================================================ */
+const CONTACT_EMAIL = "[SET-REAL-EMAIL-BEFORE-DEPLOY]";
 
 export default function Contact() {
   return (

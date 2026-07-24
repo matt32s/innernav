@@ -1,19 +1,27 @@
 "use client";
 
-import { useId } from "react";
+import { useEffect, useId, useState } from "react";
 import { useReducedMotion } from "motion/react";
 
 /**
  * Dead-signal interference for "incoming" transmissions only: barely
  * visible static at ~0.05 opacity, 2s flicker loop (.in-static-shimmer
  * keyframes in globals.css). Live episodes stay perfectly still.
- * Reduced motion mounts nothing.
+ * Client-only mount (null on server and first paint) so server and client
+ * markup always match; reduced motion mounts nothing.
  */
 export default function StaticShimmer() {
   const reduced = useReducedMotion();
+  const [on, setOn] = useState(false);
   const id = `in-static-${useId().replace(/[^a-zA-Z0-9_-]/g, "")}`;
 
-  if (reduced) return null;
+  useEffect(() => {
+    if (reduced) return;
+    const raf = requestAnimationFrame(() => setOn(true));
+    return () => cancelAnimationFrame(raf);
+  }, [reduced]);
+
+  if (!on || reduced) return null;
 
   return (
     <svg

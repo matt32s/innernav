@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Eyebrow, Divider, SocialIcons } from "@/components/Footer";
 import RewireForm from "@/components/RewireForm";
+import FlightStatus from "@/components/FlightStatus";
 import { EpisodeBanner } from "@/components/EpisodeCard";
 import FrequencyWave from "@/components/motion/FrequencyWave";
 import SignalScan from "@/components/motion/SignalScan";
@@ -94,21 +95,36 @@ export default function Home() {
           <TuneIn as="h2" className="in-display text-2xl text-cloud md:text-3xl">
             LATEST TRANSMISSION
           </TuneIn>
-          <div className="in-card mt-10 overflow-hidden text-left">
-            <EpisodeBanner episode={latest} tall />
-            <div className="p-8">
-              <p className="in-label text-lift">EPISODE {latest.numeral}</p>
-              <h3 className="mt-3 text-2xl font-extralight tracking-wide text-cloud">
-                {latest.title}
-              </h3>
-              <p className="mt-4 max-w-2xl text-sm leading-relaxed text-haze">
-                {latest.description}
-              </p>
+          <div className="in-card in-episode-card mt-10 overflow-hidden text-left">
+            {/* the biggest element on the page is clickable */}
+            <Link
+              href={`/transmission/${latest.slug}`}
+              className="block"
+              aria-label={`Open transmission: ${latest.title}`}
+            >
+              <EpisodeBanner episode={latest} tall />
+              <div className="px-8 pt-8">
+                <p className="in-label text-lift">EPISODE {latest.numeral}</p>
+                <h3 className="mt-3 text-2xl font-extralight tracking-wide text-cloud">
+                  {latest.title}
+                </h3>
+                <p className="mt-4 max-w-2xl text-sm leading-relaxed text-haze">
+                  {latest.description}
+                </p>
+              </div>
+            </Link>
+            <div className="flex flex-wrap items-center gap-4 p-8">
+              <Link
+                href={`/transmission/${latest.slug}`}
+                className="in-btn inline-block"
+              >
+                OPEN TRANSMISSION
+              </Link>
               <a
                 href={CHANNEL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="in-btn mt-8 inline-block"
+                className="in-btn in-btn-secondary inline-block"
               >
                 WATCH ON YOUTUBE
               </a>
@@ -186,22 +202,68 @@ export default function Home() {
 
       <Divider />
 
-      {/* REWIRE CTA */}
+      {/* DEPARTURES BOARD */}
       <section className="mx-auto max-w-3xl px-5 text-center">
+        <SignalScan>
+          <Eyebrow>WHAT IS INBOUND</Eyebrow>
+          <TuneIn as="h2" className="in-display text-2xl text-cloud md:text-3xl">
+            DEPARTURES
+          </TuneIn>
+          <div className="mt-12 text-left">
+            {[
+              {
+                item: "REPROGRAMMING AUDIO · $29",
+                status: "ON APPROACH",
+                detail: "ETA SEP",
+              },
+              {
+                item: "1:1 SESSIONS · COHORT II",
+                status: "BOARDING SEP",
+                detail: "10 SEATS",
+              },
+              {
+                item: "TRANSMISSION VII",
+                status: "INBOUND",
+                detail: "ETA AUG",
+              },
+            ].map((row) => (
+              <div
+                key={row.item}
+                className="flex flex-col justify-between gap-2 border-b border-frequency/20 py-5 first:border-t sm:flex-row sm:items-center"
+              >
+                <span className="in-label text-cloud">{row.item}</span>
+                <FlightStatus status={row.status} detail={row.detail} />
+              </div>
+            ))}
+          </div>
+          <p className="mt-8 text-sm text-haze">
+            Everything lands for{" "}
+            <a href="#rewire" className="text-cloud in-hover-signal">
+              the list
+            </a>{" "}
+            first.
+          </p>
+        </SignalScan>
+      </section>
+
+      <Divider />
+
+      {/* REWIRE CTA */}
+      <section id="rewire" className="mx-auto max-w-3xl px-5 text-center">
         <SignalScan>
           <Eyebrow>EARLY ACCESS</Eyebrow>
           <TuneIn as="h2" className="in-display text-2xl text-cloud md:text-3xl">
             REWIRE NOW
           </TuneIn>
           <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-haze">
-            Be the first to access new transmissions and the Inner Navigation
-            method.
+            Early access to new transmissions, the tools on arrival, and first
+            boarding for sessions.
           </p>
           <div className="mt-10">
             <RewireForm />
           </div>
           <p className="in-label mt-6 text-haze/60">
-            EARLY ACCESS. NO SPAM. JUST SIGNAL.
+            ONE LIST. NO SPAM. JUST SIGNAL.
           </p>
         </SignalScan>
       </section>
@@ -257,19 +319,22 @@ export default function Home() {
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {RESOURCES.map((r) => (
               <div key={r.name} className="in-card flex flex-col p-8">
-                <h3 className="text-lg font-extralight tracking-wide text-cloud">
+                <FlightStatus status="INBOUND" detail="ETA AUGUST" />
+                <h3 className="mt-5 text-lg font-extralight tracking-wide text-cloud">
                   {r.name}
                 </h3>
                 <p className="mt-4 flex-1 text-sm leading-relaxed text-haze">
                   {r.text}
                 </p>
-                {/* TODO: point at real PDFs in /public/resources */}
-                <a href="#resources" className="in-btn mt-8 text-center">
-                  DOWNLOAD PDF
+                <a href="#rewire" className="in-btn mt-8 text-center">
+                  NOTIFY ON ARRIVAL
                 </a>
               </div>
             ))}
           </div>
+          <p className="mt-10 text-center text-sm text-haze">
+            The tools are in final approach. The list receives them on landing.
+          </p>
         </SignalScan>
       </section>
     </>

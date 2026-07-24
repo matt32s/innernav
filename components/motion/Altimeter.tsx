@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useReducedMotion } from "motion/react";
 
 const MAX_FL = 370;
 const TRACK = 192; // px
@@ -11,10 +10,10 @@ const TRACK = 192; // px
  * the pilot's language. FL000 at page top, FL370 at page bottom.
  * Desktop only (hidden below lg). rAF-throttled; position is scroll-linked
  * (user-driven, not time-based), so it stays functional under reduced
- * motion; only the 80ms smoothing transition is dropped there.
+ * motion. The 80ms smoothing lives in CSS (.in-alt-tick) where the
+ * prefers-reduced-motion block disables it hydration-safely.
  */
 export default function Altimeter() {
-  const reduced = useReducedMotion();
   const [progress, setProgress] = useState(0);
   const raf = useRef(0);
 
@@ -56,10 +55,9 @@ export default function Altimeter() {
         ))}
         {/* current tick + readout, transform-only movement */}
         <div
-          className="absolute right-0 top-0 flex items-center gap-1.5"
+          className="in-alt-tick absolute right-0 top-0 flex items-center gap-1.5"
           style={{
             transform: `translateY(calc(${progress * TRACK}px - 50%))`,
-            transition: reduced ? undefined : "transform 80ms linear",
           }}
         >
           <span

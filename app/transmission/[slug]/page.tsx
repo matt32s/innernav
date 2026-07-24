@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { EpisodeBanner } from "@/components/EpisodeCard";
+import RewireForm from "@/components/RewireForm";
 import Datalink from "@/components/motion/Datalink";
 import SignalScan from "@/components/motion/SignalScan";
 import TuneIn from "@/components/motion/TuneIn";
 import { bySlug, episodes, CHANNEL_URL } from "@/lib/content/episodes";
-import { SOCIALS } from "@/lib/content/site";
+import { SITE, SOCIALS } from "@/lib/content/site";
 
 export function generateStaticParams() {
   return episodes.map((e) => ({ slug: e.slug }));
@@ -37,6 +38,22 @@ export default async function EpisodePage({
 
   return (
     <article className="mx-auto max-w-4xl px-5 py-24">
+      {/* VideoObject schema: live episodes only, SEO for the series */}
+      {ep.status === "live" && ep.youtubeId && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "VideoObject",
+              name: ep.title,
+              description: ep.description,
+              ...(ep.thumb ? { thumbnailUrl: `${SITE.url}${ep.thumb}` } : {}),
+              embedUrl: `https://www.youtube-nocookie.com/embed/${ep.youtubeId}`,
+            }),
+          }}
+        />
+      )}
       <SignalScan>
         {/* datalink type-in: one of exactly two surfaces */}
         <p className="in-label mb-4 text-lift">
@@ -85,9 +102,12 @@ export default async function EpisodePage({
             <div className="p-8 text-center">
               <p className="in-label text-haze">INCOMING TRANSMISSION</p>
               <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-haze">
-                This episode is in production. Reserve early access on the
-                overview page and it reaches you first.
+                This episode is in production. The list receives it on
+                arrival.
               </p>
+              <div className="mt-8">
+                <RewireForm label="NOTIFY ON ARRIVAL" listTag="episodes" />
+              </div>
             </div>
           </div>
         )}

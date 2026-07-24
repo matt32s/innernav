@@ -5,48 +5,63 @@ import { motion, useReducedMotion } from "motion/react";
 
 const FLAG = "inav-boot";
 const TITLE = "INNER NAVIGATION";
+/* hard ceiling: sequence (~2.15s) + lift (0.5s), rounded up */
+const BACKSTOP_MS = 2600;
+
+/* Survives StrictMode's double-effect in dev: the second run sees the flag
+   we just set and must not treat it as "already booted this session". */
+let claimedThisLoad = false;
 
 /**
- * Once-per-session boot overlay (~2s, then lifts).
- * Hydration-safe: renders nothing on the server and on first client paint;
- * mounts only after the sessionStorage check inside useEffect.
- * Reduced motion skips the sequence entirely. Flag is set on completion.
+ * Once-per-session boot overlay, fail-safe by construction:
+ * - null on server and first client paint (hydration-safe)
+ * - flag is set IMMEDIATELY when we claim the boot, not on completion,
+ *   so an interrupted boot never replays or re-traps
+ * - a backstop setTimeout in the SAME effect unmounts the overlay no
+ *   matter what the animation or its callbacks do
+ * - reduced motion: flag set, nothing ever mounts
+ * - done means return null: never left in the tree at opacity 0
  */
 export default function BootSequence() {
   const reduced = useReducedMotion();
   const [play, setPlay] = useState(false);
 
   useEffect(() => {
-    if (reduced) return;
-    try {
-      if (sessionStorage.getItem(FLAG)) return;
-    } catch {
+    if (reduced) {
+      try {
+        sessionStorage.setItem(FLAG, "1");
+      } catch {
+        /* no storage: still render nothing */
+      }
       return;
     }
-    // next frame, not sync in the effect body (react-hooks/set-state-in-effect)
+    try {
+      if (sessionStorage.getItem(FLAG) && !claimedThisLoad) return;
+      claimedThisLoad = true;
+      sessionStorage.setItem(FLAG, "1");
+    } catch {
+      return; // storage unavailable: no once-per-session guarantee, no overlay
+    }
+    // play on the next frame (lint: no sync setState in effect body);
+    // the backstop is the hard unmount guarantee, armed unconditionally here
     const raf = requestAnimationFrame(() => setPlay(true));
-    return () => cancelAnimationFrame(raf);
+    const backstop = setTimeout(() => setPlay(false), BACKSTOP_MS);
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(backstop);
+    };
   }, [reduced]);
 
   if (!play) return null;
 
-  const finish = () => {
-    try {
-      sessionStorage.setItem(FLAG, "1");
-    } catch {
-      /* storage unavailable: boot simply replays next load */
-    }
-    setPlay(false);
-  };
-
   return (
     <motion.div
       aria-hidden="true"
-      className="fixed inset-0 z-[200] flex items-center justify-center bg-ink"
+      className="pointer-events-none fixed inset-0 z-[200] flex items-center justify-center bg-ink"
       initial={{ y: "0%" }}
       animate={{ y: "-100%" }}
       transition={{ delay: 2.15, duration: 0.5, ease: [0.7, 0, 0.3, 1] }}
-      onAnimationComplete={finish}
+      onAnimationComplete={() => setPlay(false)}
     >
       {/* grain fades in */}
       <motion.svg
@@ -103,7 +118,7 @@ export default function BootSequence() {
               animate={{ opacity: 1 }}
               transition={{ delay: 1.2 + i * 0.035, duration: 0.18 }}
             >
-              {ch === " " ? " " : ch}
+              {ch === " " ? " " : ch}
             </motion.span>
           ))}
         </motion.p>

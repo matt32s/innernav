@@ -4,24 +4,54 @@ import { useState } from "react";
 import Datalink from "@/components/motion/Datalink";
 
 /**
- * Static-first email capture. No backend by design.
- * Wire to a provider later (Buttondown / ConvertKit / Formspree):
- * replace handleSubmit with a POST to your endpoint.
+ * Email capture. Static-first: without NEXT_PUBLIC_FORM_ENDPOINT the
+ * success state is simulated and nothing is stored. With the endpoint set
+ * (Formspree / Buttondown / any JSON POST target) it sends
+ * { email, listTag } and succeeds on any 2xx.
+ * README: set the endpoint before launch or emails are not stored.
  */
-export default function RewireForm() {
+export default function RewireForm({
+  label = "RESERVE YOUR ACCESS",
+  placeholder = "your@email.com",
+  successText = "SIGNAL RECEIVED. YOU ARE ON THE LIST.",
+  listTag = "general",
+}: {
+  label?: string;
+  placeholder?: string;
+  successText?: string;
+  listTag?: string;
+}) {
   const [email, setEmail] = useState("");
-  const [sent, setSent] = useState(false);
+  const [state, setState] = useState<"idle" | "sending" | "sent" | "error">(
+    "idle",
+  );
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!email.includes("@")) return;
-    setSent(true);
+    if (!email.includes("@") || state === "sending") return;
+
+    const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT;
+    if (!endpoint) {
+      setState("sent");
+      return;
+    }
+    setState("sending");
+    try {
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ email, listTag }),
+      });
+      setState(res.ok ? "sent" : "error");
+    } catch {
+      setState("error");
+    }
   }
 
-  if (sent) {
+  if (state === "sent") {
     return (
       <p className="in-label text-frequency" role="status">
-        <Datalink text="SIGNAL RECEIVED. YOU ARE ON THE LIST." />
+        <Datalink text={successText} />
       </p>
     );
   }
@@ -31,22 +61,32 @@ export default function RewireForm() {
       onSubmit={handleSubmit}
       className="mx-auto flex max-w-md flex-col gap-4 sm:flex-row"
     >
-      <label htmlFor="rewire-email" className="sr-only">
+      <label htmlFor={`rewire-email-${listTag}`} className="sr-only">
         Email address
       </label>
       <input
-        id="rewire-email"
+        id={`rewire-email-${listTag}`}
         type="email"
         required
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        placeholder="your@email.com"
+        placeholder={placeholder}
         className="in-input"
         autoComplete="email"
       />
-      <button type="submit" className="in-btn whitespace-nowrap">
-        RESERVE YOUR ACCESS
+      <input type="hidden" name="listTag" value={listTag} />
+      <button
+        type="submit"
+        className="in-btn whitespace-nowrap"
+        disabled={state === "sending"}
+      >
+        {state === "sending" ? "SENDING" : label}
       </button>
+      {state === "error" && (
+        <p className="in-label self-center text-haze" role="alert">
+          SIGNAL LOST. TRY AGAIN.
+        </p>
+      )}
     </form>
   );
 }

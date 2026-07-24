@@ -3,7 +3,8 @@ import { DISCLAIMER, NAV_LINKS, SOCIALS } from "@/lib/content/site";
 import AmberPulse from "@/components/motion/AmberPulse";
 import TuneIn from "@/components/motion/TuneIn";
 
-/* Small inline icons. Amber at rest per the Amber Rule (small scale only). */
+/* Small inline icons. Amber at rest per the Amber Rule (small scale only).
+   Only surfaces that exist: YouTube and Instagram. No dead links. */
 export function SocialIcons({ size = 16 }: { size?: number }) {
   const cls = "text-signal in-hover-signal";
   const common = {
@@ -14,28 +15,6 @@ export function SocialIcons({ size = 16 }: { size?: number }) {
   };
   return (
     <div className="flex items-center gap-5">
-      <a
-        href="https://facebook.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Facebook"
-        className={cls}
-      >
-        <svg viewBox="0 0 24 24" {...common}>
-          <path d="M13.5 21v-8h2.7l.4-3.2h-3.1V7.7c0-.9.3-1.6 1.7-1.6h1.5V3.2C16.4 3.1 15.4 3 14.3 3c-2.5 0-4.2 1.5-4.2 4.3v2.5H7.4V13h2.7v8h3.4Z" />
-        </svg>
-      </a>
-      <a
-        href="https://x.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="X"
-        className={cls}
-      >
-        <svg viewBox="0 0 24 24" {...common}>
-          <path d="M17.7 3h3l-6.6 7.6L22 21h-6.1l-4.8-6.3L5.6 21h-3l7.1-8.1L2 3h6.2l4.3 5.7L17.7 3Zm-1.1 16h1.7L7.4 4.7H5.6L16.6 19Z" />
-        </svg>
-      </a>
       <a
         href={SOCIALS.instagram.url}
         target="_blank"

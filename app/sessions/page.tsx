@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Eyebrow, Divider } from "@/components/Footer";
+import FlightStatus from "@/components/FlightStatus";
+import RewireForm from "@/components/RewireForm";
 import SignalScan from "@/components/motion/SignalScan";
 import TuneIn from "@/components/motion/TuneIn";
 
@@ -18,6 +19,9 @@ export default function Sessions() {
         <TuneIn as="h1" className="in-display text-3xl text-cloud md:text-4xl">
           SESSIONS
         </TuneIn>
+        <div className="mt-8">
+          <FlightStatus status="HOLDING PATTERN" detail="CURRENT COHORT FULL" />
+        </div>
       </SignalScan>
 
       <SignalScan className="mt-16 space-y-14">
@@ -54,24 +58,26 @@ export default function Sessions() {
         <div>
           <h2 className="in-label text-lift">PRICING</h2>
           <p className="mt-4 text-sm leading-relaxed text-haze">
-            Single sessions and short programs range from $150 to $350
-            depending on depth and format. Introductory pricing exists for the
-            first clients of each season. The investment is stated in full
-            before anything begins.
+            $150 to $350 depending on format. The investment is stated in full
+            before anything begins. The waitlist receives introductory
+            pricing.
           </p>
         </div>
 
         <div>
-          <h2 className="in-label text-lift">HOW TO BOOK</h2>
+          <h2 className="in-label text-lift">NEXT CLEARANCE: SEPTEMBER</h2>
           <p className="mt-4 text-sm leading-relaxed text-haze">
-            Write through the contact page with one paragraph on the pattern
-            you want to examine. You receive available slots that fit a
-            pilot&apos;s roster. Sessions run on video, recorded only if you
-            request it.
+            Sessions open in small cohorts. The current one is closed. Ten
+            seats open in September at introductory pricing. The waitlist
+            boards first.
           </p>
-          <Link href="/contact" className="in-btn mt-8 inline-block">
-            REQUEST A SESSION
-          </Link>
+          <div className="mt-8">
+            <RewireForm
+              label="JOIN THE WAITLIST"
+              successText="YOU ARE IN THE HOLDING PATTERN. YOU BOARD FIRST."
+              listTag="sessions"
+            />
+          </div>
         </div>
       </SignalScan>
 

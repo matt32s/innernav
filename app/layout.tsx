@@ -21,6 +21,13 @@ export const metadata: Metadata = {
     url: SITE.url,
     siteName: SITE.name,
     type: "website",
+    images: [{ url: "/og.png", width: 1200, height: 679 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Inner Navigation",
+    description: SITE.description,
+    images: ["/og.png"],
   },
 };
 

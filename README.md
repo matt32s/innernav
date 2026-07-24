@@ -17,13 +17,20 @@ Push this folder to a GitHub repo → import in Vercel → deploy. Nothing else 
 - lib/content/site.ts — socials, nav, disclaimer.
 - app/contact/page.tsx — set the real CONTACT_EMAIL.
 
+## BEFORE LAUNCH (blocking)
+1. Set NEXT_PUBLIC_FORM_ENDPOINT (Formspree/Buttondown) before launch or emails
+   are not stored. RewireForm POSTs { email, listTag } JSON; listTags in use:
+   general, sessions, episodes. Without the env var, success is simulated.
+2. [SET REAL EMAIL before deploy] — app/contact/page.tsx CONTACT_EMAIL is a
+   visible placeholder. Do not ship it.
+
 ## TODO before EP08 (per plan)
-1. Paste EP01–06 YouTube IDs (+ EP07 on publish).
-2. Real thumbnail stills: add to /public/episodes/[slug].jpg and swap EpisodeBanner
-   background for next/image (ask Claude; 5-minute change).
-3. Wire RewireForm (components/RewireForm.tsx) to email provider — handler is isolated.
-4. Drop the 3 free PDFs into /public/resources/ and point the resource card links at them.
-5. Optional: /deck.html (INAV Deck app) into /public for the tracker at inner-nav.com/deck.html.
+1. Done: EP01–06 YouTube IDs + thumbnails (/public/episodes/[slug].png).
+   EP07 on publish: set youtubeId, flip status to "live", add thumb.
+2. Drop the 3 free PDFs into /public/resources/ and swap the resource cards
+   from NOTIFY ON ARRIVAL back to real DOWNLOAD PDF links.
+3. Optional: /deck.html (INAV Deck app) into /public for the tracker at inner-nav.com/deck.html.
+4. og.png is a copy of EP06 art; replace with a dedicated 1200x630 card when one exists.
 
 ## Design system (locked)
 Tokens in app/globals.css @theme. Amber Rule enforced: amber only on indicator dots,

@@ -171,6 +171,11 @@ body {
   color: rgba(45, 156, 140, 0.6);
 }
 
+/* ---------- motion: altimeter tick smoothing (reduce block disables) ---------- */
+.in-alt-tick {
+  transition: transform 80ms linear;
+}
+
 /* ---------- motion: amber pulse (the one living element per page) ---------- */
 @keyframes in-amber-pulse {
   0%,
