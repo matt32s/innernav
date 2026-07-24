@@ -11,6 +11,6 @@ Spec: user BUILD brief (approved, executing).
 [MODIFY] app/layout.tsx — Geist 200/300/400/500/700, metadata, grain+nav+footer shell.
 [MODIFY] app/page.tsx — hero, latest transmission, 3 cards, method 4 phases, rewire, network, resources.
 [NEW] app/transmission/page.tsx, app/transmission/[slug]/page.tsx (embed in place, incoming state, sessions CTA).
-[NEW] app/flight-deck/page.tsx, app/sessions/page.tsx ($150–350), app/about/page.tsx, app/contact/page.tsx.
+[NEW] app/flight-deck/page.tsx, app/sessions/page.tsx ($150 flat, includes custom script + 30-day review; course $47 at /reprogramming), app/about/page.tsx, app/contact/page.tsx.
 [NEW] app/sitemap.ts, app/robots.ts, app/icon.svg.
 Verify: npm run build, zero TS errors. Deliver zip.

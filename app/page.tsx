@@ -256,8 +256,8 @@ export default function Home() {
             REWIRE NOW
           </TuneIn>
           <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-haze">
-            Early access to new transmissions, the tools on arrival, and first
-            boarding for sessions.
+            Early access to new transmissions, the tools on arrival, and
+            every future release before it lands.
           </p>
           <div className="mt-10">
             <RewireForm />
