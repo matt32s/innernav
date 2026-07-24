@@ -4,7 +4,8 @@
  * Pure CSS (.in-amber-pulse in globals.css); the prefers-reduced-motion
  * block sets animation: none, which is hydration-safe (identical markup on
  * server and client, the media query does the guarding).
- * Amber Rule: indicator dots only. Never headlines, buttons, wordmarks.
+ * Amber Rule: indicator dots, plus the single course CTA (.in-btn-signal
+ * on /reprogramming). Never headlines or wordmarks.
  */
 export default function AmberPulse({ className = "" }: { className?: string }) {
   return (

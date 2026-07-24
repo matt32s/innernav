@@ -149,17 +149,17 @@ export default function Home() {
               resolved. This is the work everything else points back to.
             </p>
           </Link>
-          <div className="in-card h-full p-8">
+          <Link href="/reprogramming" className="in-card block h-full p-8">
             <p className="in-label text-lift">THE METHOD</p>
             <h3 className="mt-4 text-xl font-extralight tracking-wide text-cloud">
               Subconscious Reprogramming
             </h3>
             <p className="mt-4 text-sm leading-relaxed text-haze">
               Four phases. Awareness, extraction, reprogramming, integration.
-              The same protocol running in the series, offered as a method you
-              can run on your own patterns.
+              Now taught as a daily practice in Remember the Future — the
+              course.
             </p>
-          </div>
+          </Link>
           <a href="#resources" className="in-card block h-full p-8">
             <p className="in-label text-lift">THE TOOLS</p>
             <h3 className="mt-4 text-xl font-extralight tracking-wide text-cloud">

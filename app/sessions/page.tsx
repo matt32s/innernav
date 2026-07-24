@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Eyebrow, Divider } from "@/components/Footer";
-import FlightStatus from "@/components/FlightStatus";
-import RewireForm from "@/components/RewireForm";
 import SignalScan from "@/components/motion/SignalScan";
 import TuneIn from "@/components/motion/TuneIn";
+import { COURSE_PRICE, SESSION_PRICE } from "@/lib/content/site";
 
 export const metadata: Metadata = {
   title: "Sessions",
   description:
-    "1:1 inner navigation sessions. Pattern extraction and subconscious reprogramming, applied to your material.",
+    "1:1 inner navigation sessions. One hour, your pattern on the table, a custom subconscious reprogramming script, and a 30-day review.",
 };
 
 export default function Sessions() {
@@ -19,9 +19,10 @@ export default function Sessions() {
         <TuneIn as="h1" className="in-display text-3xl text-cloud md:text-4xl">
           SESSIONS
         </TuneIn>
-        <div className="mt-8">
-          <FlightStatus status="HOLDING PATTERN" detail="CURRENT COHORT FULL" />
-        </div>
+        <p className="in-label mt-8 leading-loose text-haze">
+          ${SESSION_PRICE} · ONE HOUR · INCLUDES YOUR CUSTOM SCRIPT + 30-DAY
+          REVIEW
+        </p>
       </SignalScan>
 
       <SignalScan className="mt-16 space-y-14">
@@ -29,9 +30,38 @@ export default function Sessions() {
           <h2 className="in-label text-lift">WHAT THIS IS</h2>
           <p className="mt-4 text-sm leading-relaxed text-haze">
             One hour. Your pattern on the table. We locate the loop, extract
-            the belief underneath it, and install the beginning of a new
-            program. The same method running in the Transmission Series,
-            applied to your material. This is examination, not advice.
+            the belief underneath it, and map exactly what has been running
+            you. The same method running in the Transmission Series, applied
+            to your material. This is examination, not advice.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="in-label text-lift">FIND THE DESIRE</h2>
+          <p className="mt-4 text-sm leading-relaxed text-haze">
+            Most people do not know what they want. Part of this session is
+            finding it — the actual desire underneath the noise, before any
+            reprogramming begins. A script written toward a borrowed goal
+            reprograms nothing.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="in-label text-lift">WHAT YOU LEAVE WITH</h2>
+          <p className="mt-4 text-sm leading-relaxed text-haze">
+            A custom subconscious reprogramming script, written for you after
+            the session — built from your pattern, your belief, your language.
+            It arrives with exact instructions: morning, afternoon, night.
+            Not a template. An instrument made for one person.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="in-label text-lift">THE 30-DAY REVIEW</h2>
+          <p className="mt-4 text-sm leading-relaxed text-haze">
+            One month later, a 30-minute follow-up. Included. We review what
+            shifted, what resisted, and adjust the script against what
+            actually happened. The protocol is corrected, not abandoned.
           </p>
         </div>
 
@@ -46,39 +76,33 @@ export default function Sessions() {
         </div>
 
         <div>
-          <h2 className="in-label text-lift">WHAT TO EXPECT</h2>
-          <p className="mt-4 text-sm leading-relaxed text-haze">
-            Direct questions. Slow, precise observation. You will be asked to
-            look at things you normally route around. Nothing is forced.
-            Everything is named. You leave with the pattern mapped and a
-            written protocol to run between sessions.
-          </p>
-        </div>
-
-        <div>
           <h2 className="in-label text-lift">PRICING</h2>
           <p className="mt-4 text-sm leading-relaxed text-haze">
-            $150 to $350 depending on format. The investment is stated in full
-            before anything begins. The waitlist receives introductory
-            pricing.
-          </p>
-        </div>
-
-        <div>
-          <h2 className="in-label text-lift">NEXT CLEARANCE: SEPTEMBER</h2>
-          <p className="mt-4 text-sm leading-relaxed text-haze">
-            Sessions open in small cohorts. The current one is closed. Ten
-            seats open in September at introductory pricing. The waitlist
-            boards first.
+            ${SESSION_PRICE}. One hour, the custom script, and the 30-day
+            review. Everything included, stated in full before anything
+            begins.
           </p>
           <div className="mt-8">
-            <RewireForm
-              label="JOIN THE WAITLIST"
-              successText="YOU ARE IN THE HOLDING PATTERN. YOU BOARD FIRST."
-              listTag="sessions"
-            />
+            <Link href="/contact" className="in-btn inline-block">
+              REQUEST A SESSION
+            </Link>
           </div>
         </div>
+      </SignalScan>
+
+      <Divider />
+
+      <SignalScan>
+        <Link href="/reprogramming" className="in-card block p-8">
+          <p className="in-label text-lift">THE COURSE</p>
+          <h3 className="mt-4 text-xl font-extralight tracking-wide text-cloud">
+            Not ready for 1:1? Start with the course.
+          </h3>
+          <p className="mt-4 text-sm leading-relaxed text-haze">
+            Remember the Future — the same method as a daily practice you run
+            on your own. ${COURSE_PRICE}.
+          </p>
+        </Link>
       </SignalScan>
 
       <Divider />

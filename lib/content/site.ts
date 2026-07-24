@@ -16,11 +16,17 @@ export const SOCIALS = {
 export const NAV_LINKS = [
   { href: "/", label: "OVERVIEW" },
   { href: "/transmission", label: "TRANSMISSION" },
+  { href: "/reprogramming", label: "REPROGRAMMING" },
   { href: "/flight-deck", label: "FLIGHT DECK" },
   { href: "/sessions", label: "SESSIONS" },
   { href: "/about", label: "ABOUT" },
   { href: "/contact", label: "CONTACT" },
 ] as const;
+
+/* Pricing and checkout live here so they are edited in one place. */
+export const courseCheckoutUrl = "#checkout"; // placeholder until checkout exists
+export const COURSE_PRICE = 47;
+export const SESSION_PRICE = 150;
 
 export const DISCLAIMER =
   "Inner Navigation provides educational content for personal development. This is not a substitute for professional therapy or medical advice. Each individual is responsible for their own process and decisions.";

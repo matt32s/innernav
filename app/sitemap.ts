@@ -6,6 +6,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "",
     "/transmission",
+    "/reprogramming",
     "/flight-deck",
     "/sessions",
     "/about",
