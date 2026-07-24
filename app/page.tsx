@@ -7,7 +7,7 @@ import FrequencyWave from "@/components/motion/FrequencyWave";
 import SignalScan from "@/components/motion/SignalScan";
 import TuneIn from "@/components/motion/TuneIn";
 import { latestLive, CHANNEL_URL } from "@/lib/content/episodes";
-import { SOCIALS } from "@/lib/content/site";
+import { COURSE_PRICE, SESSION_PRICE, SOCIALS } from "@/lib/content/site";
 
 const METHOD = [
   {
@@ -212,14 +212,14 @@ export default function Home() {
           <div className="mt-12 text-left">
             {[
               {
-                item: "REPROGRAMMING AUDIO · $29",
-                status: "ON APPROACH",
-                detail: "ETA SEP",
+                item: `REMEMBER THE FUTURE · $${COURSE_PRICE}`,
+                status: "NOW BOARDING",
+                detail: "IMMEDIATE ACCESS",
               },
               {
-                item: "1:1 SESSIONS · COHORT II",
-                status: "BOARDING SEP",
-                detail: "10 SEATS",
+                item: `1:1 SESSIONS · $${SESSION_PRICE}`,
+                status: "BOARDING",
+                detail: "SEATS OPEN",
               },
               {
                 item: "TRANSMISSION VII",
