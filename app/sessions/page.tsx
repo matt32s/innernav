@@ -3,7 +3,11 @@ import Link from "next/link";
 import { Eyebrow, Divider } from "@/components/Footer";
 import SignalScan from "@/components/motion/SignalScan";
 import TuneIn from "@/components/motion/TuneIn";
-import { COURSE_PRICE, SESSION_PRICE } from "@/lib/content/site";
+import {
+  COURSE_PRICE,
+  OFFERINGS_LIVE,
+  SESSION_PRICE,
+} from "@/lib/content/site";
 
 export const metadata: Metadata = {
   title: "Sessions",
@@ -20,9 +24,13 @@ export default function Sessions() {
           SESSIONS
         </TuneIn>
         <p className="in-label mt-8 leading-loose text-haze">
-          ${SESSION_PRICE} · ONE HOUR · INCLUDES YOUR CUSTOM SCRIPT + 30-DAY
-          REVIEW
+          {OFFERINGS_LIVE
+            ? `$${SESSION_PRICE} · ONE HOUR · INCLUDES YOUR CUSTOM SCRIPT + 30-DAY REVIEW`
+            : "ONE HOUR · CUSTOM SCRIPT · 30-DAY REVIEW"}
         </p>
+        {!OFFERINGS_LIVE && (
+          <p className="in-label mt-4 text-lift">COMING SOON</p>
+        )}
       </SignalScan>
 
       <SignalScan className="mt-16 space-y-14">
@@ -78,14 +86,20 @@ export default function Sessions() {
         <div>
           <h2 className="in-label text-lift">PRICING</h2>
           <p className="mt-4 text-sm leading-relaxed text-haze">
-            ${SESSION_PRICE}. One hour, the custom script, and the 30-day
-            review. Everything included, stated in full before anything
-            begins.
+            {OFFERINGS_LIVE
+              ? `$${SESSION_PRICE}. One hour, the custom script, and the 30-day review. Everything included, stated in full before anything begins.`
+              : "Pricing announced at launch."}
           </p>
           <div className="mt-8">
-            <Link href="/contact" className="in-btn inline-block">
-              REQUEST A SESSION
-            </Link>
+            {OFFERINGS_LIVE ? (
+              <Link href="/contact" className="in-btn inline-block">
+                REQUEST A SESSION
+              </Link>
+            ) : (
+              <Link href="/#rewire" className="in-btn inline-block">
+                JOIN THE LIST
+              </Link>
+            )}
           </div>
         </div>
       </SignalScan>
@@ -100,7 +114,7 @@ export default function Sessions() {
           </h3>
           <p className="mt-4 text-sm leading-relaxed text-haze">
             Remember the Future — the same method as a daily practice you run
-            on your own. ${COURSE_PRICE}.
+            on your own.{OFFERINGS_LIVE && ` $${COURSE_PRICE}.`}
           </p>
         </Link>
       </SignalScan>

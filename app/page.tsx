@@ -7,7 +7,12 @@ import FrequencyWave from "@/components/motion/FrequencyWave";
 import SignalScan from "@/components/motion/SignalScan";
 import TuneIn from "@/components/motion/TuneIn";
 import { latestLive, CHANNEL_URL } from "@/lib/content/episodes";
-import { COURSE_PRICE, SESSION_PRICE, SOCIALS } from "@/lib/content/site";
+import {
+  COURSE_PRICE,
+  OFFERINGS_LIVE,
+  SESSION_PRICE,
+  SOCIALS,
+} from "@/lib/content/site";
 
 const METHOD = [
   {
@@ -156,8 +161,9 @@ export default function Home() {
             </h3>
             <p className="mt-4 text-sm leading-relaxed text-haze">
               Four phases. Awareness, extraction, reprogramming, integration.
-              Now taught as a daily practice in Remember the Future — the
-              course.
+              {OFFERINGS_LIVE
+                ? " Now taught as a daily practice in Remember the Future — the course."
+                : " Becoming a daily practice in Remember the Future — the course, now in production."}
             </p>
           </Link>
           <a href="#resources" className="in-card block h-full p-8">
@@ -211,16 +217,31 @@ export default function Home() {
           </TuneIn>
           <div className="mt-12 text-left">
             {[
-              {
-                item: `REMEMBER THE FUTURE · $${COURSE_PRICE}`,
-                status: "NOW BOARDING",
-                detail: "IMMEDIATE ACCESS",
-              },
-              {
-                item: `1:1 SESSIONS · $${SESSION_PRICE}`,
-                status: "BOARDING",
-                detail: "SEATS OPEN",
-              },
+              ...(OFFERINGS_LIVE
+                ? [
+                    {
+                      item: `REMEMBER THE FUTURE · $${COURSE_PRICE}`,
+                      status: "NOW BOARDING",
+                      detail: "IMMEDIATE ACCESS",
+                    },
+                    {
+                      item: `1:1 SESSIONS · $${SESSION_PRICE}`,
+                      status: "BOARDING",
+                      detail: "SEATS OPEN",
+                    },
+                  ]
+                : [
+                    {
+                      item: "REMEMBER THE FUTURE",
+                      status: "IN PRODUCTION",
+                      detail: "ETA TBA",
+                    },
+                    {
+                      item: "1:1 SESSIONS",
+                      status: "PREPARING FOR DEPARTURE",
+                      detail: "GATE TBA",
+                    },
+                  ]),
               {
                 item: "TRANSMISSION VII",
                 status: "INBOUND",
@@ -256,8 +277,9 @@ export default function Home() {
             REWIRE NOW
           </TuneIn>
           <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-haze">
-            Early access to new transmissions, the tools on arrival, and
-            every future release before it lands.
+            {OFFERINGS_LIVE
+              ? "Early access to new transmissions, the tools on arrival, and every future release before it lands."
+              : "The course and the sessions are on approach. The list receives the boarding call first — along with new transmissions and the tools on arrival."}
           </p>
           <div className="mt-10">
             <RewireForm />

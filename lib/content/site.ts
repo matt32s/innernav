@@ -1,4 +1,4 @@
-export const SITE = {
+﻿export const SITE = {
   name: "Inner Navigation",
   url: "https://inner-nav.com",
   description:
@@ -22,6 +22,11 @@ export const NAV_LINKS = [
   { href: "/about", label: "ABOUT" },
   { href: "/contact", label: "CONTACT" },
 ] as const;
+
+/* Pre-launch switch: false hides every price and purchase CTA sitewide and
+   routes conversion to the email list. Flip to true to go live - no other
+   edits required. */
+export const OFFERINGS_LIVE: boolean = false;
 
 /* Pricing and checkout live here so they are edited in one place. */
 export const courseCheckoutUrl = "#checkout"; // placeholder until checkout exists

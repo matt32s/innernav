@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Eyebrow, Divider } from "@/components/Footer";
 import SignalScan from "@/components/motion/SignalScan";
 import TuneIn from "@/components/motion/TuneIn";
-import { COURSE_PRICE, courseCheckoutUrl } from "@/lib/content/site";
+import {
+  COURSE_PRICE,
+  courseCheckoutUrl,
+  OFFERINGS_LIVE,
+} from "@/lib/content/site";
 
 export const metadata: Metadata = {
   title: "Remember the Future",
@@ -52,14 +57,26 @@ const PRACTICE = [
 ];
 
 /* The Amber Rule: these two instances of the same CTA are the only amber
-   buttons on the site. */
+   buttons on the site. Pre-launch it points at the email list; live it
+   points at checkout. */
 function CourseCta() {
+  if (!OFFERINGS_LIVE) {
+    return (
+      <Link href="/#rewire" className="in-btn in-btn-signal">
+        JOIN THE LIST
+      </Link>
+    );
+  }
   return (
     <a href={courseCheckoutUrl} className="in-btn in-btn-signal">
       GET THE COURSE — ${COURSE_PRICE}
     </a>
   );
 }
+
+const ACCESS_NOTE = OFFERINGS_LIVE
+  ? "Digital course. Immediate access after purchase."
+  : "In production. Join the list to know when it lands.";
 
 export default function Reprogramming() {
   return (
@@ -80,12 +97,13 @@ export default function Reprogramming() {
             pattern. Extract the belief. Write the script. Saturate the field
             until the old reality is impossible.
           </p>
+          {!OFFERINGS_LIVE && (
+            <p className="in-label mt-8 text-lift">COMING SOON</p>
+          )}
           <div className="mt-12">
             <CourseCta />
           </div>
-          <p className="mt-6 text-xs text-haze/70">
-            Digital course. Immediate access after purchase.
-          </p>
+          <p className="mt-6 text-xs text-haze/70">{ACCESS_NOTE}</p>
         </SignalScan>
       </section>
 
@@ -205,9 +223,7 @@ export default function Reprogramming() {
           <div className="mt-12">
             <CourseCta />
           </div>
-          <p className="mt-6 text-xs text-haze/70">
-            Digital course. Immediate access after purchase.
-          </p>
+          <p className="mt-6 text-xs text-haze/70">{ACCESS_NOTE}</p>
         </SignalScan>
       </section>
     </>
