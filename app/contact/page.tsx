@@ -6,15 +6,8 @@ import { SOCIALS } from "@/lib/content/site";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Reach Inner Navigation. Session inquiries and collaboration.",
+  description: "Find Inner Navigation on Instagram and YouTube.",
 };
-
-/* ============================================================
-   TODO [SET REAL EMAIL before deploy]
-   This is a placeholder. It renders on the live contact page.
-   Replace with the real inbox before the site goes public.
-   ============================================================ */
-const CONTACT_EMAIL = "[SET-REAL-EMAIL-BEFORE-DEPLOY]";
 
 export default function Contact() {
   return (
@@ -25,7 +18,7 @@ export default function Contact() {
           CONTACT
         </TuneIn>
         <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-haze">
-          One inbox. Read personally, answered between flights.
+          Find Inner Navigation on Instagram and YouTube.
         </p>
       </SignalScan>
 
@@ -33,19 +26,6 @@ export default function Contact() {
         className="mt-16 grid gap-6 sm:grid-cols-2"
         itemClassName="h-full"
       >
-        <div className="in-card h-full p-8">
-          <p className="in-label text-lift">EMAIL</p>
-          <a
-            href={`mailto:${CONTACT_EMAIL}`}
-            className="mt-4 block break-all text-sm text-cloud in-hover-signal"
-          >
-            {CONTACT_EMAIL}
-          </a>
-          <p className="mt-4 text-xs leading-relaxed text-haze">
-            For session inquiries: one paragraph on the pattern you want to
-            examine.
-          </p>
-        </div>
         <div className="in-card h-full p-8">
           <p className="in-label text-lift">SURFACES</p>
           <div className="mt-4 space-y-3">

@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { EpisodeBanner } from "@/components/EpisodeCard";
-import RewireForm from "@/components/RewireForm";
 import Datalink from "@/components/motion/Datalink";
 import SignalScan from "@/components/motion/SignalScan";
 import TuneIn from "@/components/motion/TuneIn";
@@ -24,6 +22,7 @@ export async function generateMetadata({
   return {
     title: `${ep.title} · EP.${String(ep.number).padStart(2, "0")}`,
     description: ep.hook,
+    ...(ep.status === "incoming" ? { robots: { index: false } } : {}),
   };
 }
 
@@ -102,12 +101,8 @@ export default async function EpisodePage({
             <div className="p-8 text-center">
               <p className="in-label text-haze">INCOMING TRANSMISSION</p>
               <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-haze">
-                This episode is in production. The list receives it on
-                arrival.
+                This episode is in production.
               </p>
-              <div className="mt-8">
-                <RewireForm label="NOTIFY ON ARRIVAL" listTag="episodes" />
-              </div>
             </div>
           </div>
         )}
@@ -140,15 +135,6 @@ export default async function EpisodePage({
         >
           INSTAGRAM · {SOCIALS.instagram.handle}
         </a>
-      </div>
-
-      {/* Bottom CTA */}
-      <div className="in-card mt-16 p-8 text-center">
-        <p className="in-label text-lift">GO DEEPER</p>
-        <p className="mt-4 text-sm text-haze">Want to do this work 1:1?</p>
-        <Link href="/sessions" className="in-btn mt-6 inline-block">
-          EXPLORE SESSIONS
-        </Link>
       </div>
     </article>
   );

@@ -81,6 +81,9 @@ export default function Footer() {
               {l.label}
             </Link>
           ))}
+          <Link href="/contact" className="in-label text-haze in-hover-signal">
+            CONTACT
+          </Link>
         </nav>
         <div className="mt-10 flex justify-center">
           <SocialIcons />

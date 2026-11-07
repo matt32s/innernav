@@ -3,12 +3,12 @@ import EpisodeCard from "@/components/EpisodeCard";
 import { Eyebrow } from "@/components/Footer";
 import SignalScan from "@/components/motion/SignalScan";
 import TuneIn from "@/components/motion/TuneIn";
-import { episodes } from "@/lib/content/episodes";
+import { episodes, publishedEpisodes } from "@/lib/content/episodes";
 
 export const metadata: Metadata = {
   title: "Transmission",
   description:
-    "The Transmission Series. Ten episodes documenting one man's transformation in real time.",
+    "The Transmission Series documents one man's transformation in real time.",
 };
 
 export default function TransmissionIndex() {
@@ -20,8 +20,9 @@ export default function TransmissionIndex() {
           TRANSMISSION SERIES
         </TuneIn>
         <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-haze">
-          Ten transmissions. The complete architecture of a transformation,
-          recorded from inside it. Currently transforming. Not already healed.
+          {publishedEpisodes.length} transmissions released. The architecture of
+          a transformation, recorded from inside it. Currently transforming. Not
+          already healed.
         </p>
       </SignalScan>
       <SignalScan

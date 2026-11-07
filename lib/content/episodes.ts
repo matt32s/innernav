@@ -96,9 +96,9 @@ export const episodes: Episode[] = [
     title: "The Endless Vessel",
     hook: "What the soul actually is, examined from inside one.",
     description:
-      "The soul's true nature approached as a live question. A vessel built to receive without end, and what happens when it remembers that. Incoming. ETA August 2026.",
-    youtubeId: "",
-    status: "incoming",
+      "The soul's true nature approached as a live question. A vessel built to receive without end, and what happens when it remembers that.",
+    youtubeId: "kJEug3bnw6s",
+    status: "live",
     thumb: "/episodes/the-endless-vessel.png",
   },
   {
@@ -107,10 +107,11 @@ export const episodes: Episode[] = [
     numeral: "VIII",
     title: "The Collective Shadow",
     hook: "The mirror principle and the collective shadow.",
-    description: "Recorded. In post-production. Incoming.",
-    youtubeId: "",
-    status: "incoming",
-    thumb: "/episodes/transmission-viii.png",
+    description:
+      "The Collective Shadow brings shadow work into the patterns and wounds we keep meeting through other people. What we give to the collective field. What comes back through the mirror. And the choices we make while we're still inside the pattern.",
+    youtubeId: "QT4Qlzn0s5Q",
+    status: "live",
+    thumb: "/episodes/the-collective-shadow.png",
   },
   {
     slug: "transmission-ix",
@@ -136,8 +137,11 @@ export const episodes: Episode[] = [
   },
 ];
 
-export const latestLive = (): Episode =>
-  [...episodes].reverse().find((e) => e.status === "live") ?? episodes[0];
+export const publishedEpisodes = episodes
+  .filter((episode) => episode.status === "live" && episode.youtubeId)
+  .sort((first, second) => first.number - second.number);
+
+export const latestPublishedEpisode = publishedEpisodes.at(-1);
 
 export const bySlug = (slug: string): Episode | undefined =>
   episodes.find((e) => e.slug === slug);

@@ -1,6 +1,6 @@
 ﻿export const SITE = {
   name: "Inner Navigation",
-  url: "https://inner-nav.com",
+  url: "https://www.inner-nav.com",
   description:
     "Shadow work. Inner transformation. Real time process. An airline pilot's living transformation, documented as it happens.",
 };
@@ -9,18 +9,15 @@ export const SOCIALS = {
   youtube: { handle: "@Inner-Nav", url: "https://www.youtube.com/@Inner-Nav" },
   instagram: {
     handle: "@mateo.innernav",
-    url: "https://instagram.com/mateo.innernav",
+    url: "https://www.instagram.com/mateo.innernav/",
   },
 };
 
 export const NAV_LINKS = [
-  { href: "/", label: "OVERVIEW" },
-  { href: "/transmission", label: "TRANSMISSION" },
-  { href: "/reprogramming", label: "REPROGRAMMING" },
-  { href: "/flight-deck", label: "FLIGHT DECK" },
-  { href: "/sessions", label: "SESSIONS" },
+  { href: "/", label: "HOME" },
+  { href: "/transmission", label: "EPISODES" },
   { href: "/about", label: "ABOUT" },
-  { href: "/contact", label: "CONTACT" },
+  { href: SOCIALS.instagram.url, label: "INSTAGRAM" },
 ] as const;
 
 /* Pre-launch switch: false hides every price and purchase CTA sitewide and

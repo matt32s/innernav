@@ -1,19 +1,16 @@
 import type { MetadataRoute } from "next";
-import { episodes } from "@/lib/content/episodes";
+import { publishedEpisodes } from "@/lib/content/episodes";
 import { SITE } from "@/lib/content/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "",
     "/transmission",
-    "/reprogramming",
-    "/flight-deck",
-    "/sessions",
     "/about",
     "/contact",
   ].map((p) => ({ url: `${SITE.url}${p}`, changeFrequency: "weekly" as const }));
 
-  const episodeRoutes = episodes.map((e) => ({
+  const episodeRoutes = publishedEpisodes.map((e) => ({
     url: `${SITE.url}/transmission/${e.slug}`,
     changeFrequency: "monthly" as const,
   }));

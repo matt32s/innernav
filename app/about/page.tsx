@@ -31,8 +31,8 @@ export default function About() {
           show. I decided to examine them on camera instead of after the fact.
         </p>
         <p>
-          The Transmission Series is that examination. Ten episodes, recorded
-          from inside the process. I take the observer position. I describe
+          The Transmission Series is that examination, recorded from inside
+          the process. I take the observer position. I describe
           what was learned. I name my own patterns and leave everyone else out
           of the frame.
         </p>
